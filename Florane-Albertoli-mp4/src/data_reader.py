@@ -126,16 +126,16 @@ class DataReader:
         Returns:
             selected_columns (list): The list of selected feature column names that are most important for the model
         """
-                # Step 1: Drop all-zero columns (e.g., from disconnected buses or unused generators)
+        # Drop all-zero columns (e.g., from disconnected buses or unused generators)
         all_zero_mask = (df_feature == 0).all()
         non_zero_columns = df_feature.columns[~all_zero_mask]
 
-        # Step 2: Drop constant-but-not-zero columns
+        # Drop constant-but-not-zero columns
         n_unique = df_feature[non_zero_columns].nunique()
         constant_nonzero_mask = (n_unique == 1)
         variable_columns = n_unique[~constant_nonzero_mask].index
 
-        # Step 3: Filter out any columns not in the official feature list (safety check)
+        # Filter out any columns not in the official feature list (safety check)
         selected_columns = [col for col in variable_columns if col in DataReader.ALL_FEATURE_LIST]
 
         return selected_columns

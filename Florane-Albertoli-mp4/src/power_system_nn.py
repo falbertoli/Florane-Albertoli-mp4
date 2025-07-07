@@ -51,9 +51,3 @@ class PowerSystemNN(nn.Module):
         x = self.sigmoid(self.output_layer(x))
 
         return x
-
-if __name__ == "__main__":
-    model = PowerSystemNN(input_dim=53, output_dim=46)
-    dummy_input = torch.randn(8, 53)  # Simulate a batch of 8 inputs
-    output = model(dummy_input)
-    print("Output shape:", output.shape)  # Should be: torch.Size([8, 46])
